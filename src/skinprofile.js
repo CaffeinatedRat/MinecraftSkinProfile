@@ -30,6 +30,7 @@
 * Change Log
 * Version 2 (3/9/13) --  Added an exception for browsers that do not support webgl.
 * Version 3 (3/14/13) --  Fixed the stop method so it calls the cancelAnimationFrame rather than clearTimeout.
+* Version 4 (5/5/13) --  Added functionality to the property positionVector3, so that now models will be translated to that position.
 * -----------------------------------------------------------------
 */
 
@@ -84,6 +85,17 @@ CaffeinatedRat.Minecraft.ComputedModel = function (parameters) {
     else {
 
         this._scale = 300;
+
+    }
+
+    if (parameters.positionVector3 !== undefined) {
+
+        this._positionVector3 = parameters.positionVector3;
+
+    }
+    else {
+
+        this._positionVector3 = new THREE.Vector3(0.0, 0.0, 0.0);
 
     }
 
@@ -381,6 +393,36 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
 
     this._scene.add(this._rightLegMesh);
 
+    if (this._positionVector3 !== undefined) {
+
+        this._headMesh.position.x += this._positionVector3.x;
+        this._headMesh.position.y += this._positionVector3.y;
+        this._headMesh.position.z += this._positionVector3.z;
+
+        this._helmetMesh.position.x += this._positionVector3.x;
+        this._helmetMesh.position.y += this._positionVector3.y;
+        this._helmetMesh.position.z += this._positionVector3.z;
+
+        this._bodyMesh.position.x += this._positionVector3.x;
+        this._bodyMesh.position.y += this._positionVector3.y;
+        this._bodyMesh.position.z += this._positionVector3.z;
+
+        this._leftArmMesh.position.x += this._positionVector3.x;
+        this._leftArmMesh.position.y += this._positionVector3.y;
+        this._leftArmMesh.position.z += this._positionVector3.z;
+
+        this._rightArmMesh.position.x += this._positionVector3.x;
+        this._rightArmMesh.position.y += this._positionVector3.y;
+        this._rightArmMesh.position.z += this._positionVector3.z;
+
+        this._leftLegMesh.position.x += this._positionVector3.x;
+        this._leftLegMesh.position.y += this._positionVector3.y;
+        this._leftLegMesh.position.z += this._positionVector3.z;
+
+        this._rightLegMesh.position.x += this._positionVector3.x;
+        this._rightLegMesh.position.y += this._positionVector3.y;
+        this._rightLegMesh.position.z += this._positionVector3.z;
+    }
 }
 
 CaffeinatedRat.Minecraft.ComputedModel.prototype.animate = function () {
@@ -394,6 +436,7 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.animate = function () {
     //	}
 
     this._helmetMesh.visible = !this._hideHelmet;
+
 
 }
 
@@ -429,7 +472,7 @@ CaffeinatedRat.Minecraft.SkinProfile = function (parameters) {
     //-----------------------------------------------------------------
     // Versioning
     //-----------------------------------------------------------------
-    CaffeinatedRat.Minecraft.SkinProfile.VERSION = '3';
+    CaffeinatedRat.Minecraft.SkinProfile.VERSION = '4';
 
     console.log('CaffeinatedRat.Minecraft.SkinProfile.Version: ' + CaffeinatedRat.Minecraft.SkinProfile.VERSION);
 
@@ -537,7 +580,8 @@ CaffeinatedRat.Minecraft.SkinProfile = function (parameters) {
 
         hideHelmet: this._hideHelmet,
         skinImage: this._skinImage,
-        scale: this._scale
+        scale: this._scale,
+        positionVector3: this._positionVector3
 
     });
 }
