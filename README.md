@@ -17,7 +17,7 @@ Change Log
 
 The following contains information about new features, bug fixes, and other version changes.
 
-#### 4.0.0 (5/9/14)
+#### 4.0.0 (5/9/13)
 
 Added functionality to the property positionVector3, so that now models will be translated to that position.
 
