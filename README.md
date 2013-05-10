@@ -17,6 +17,10 @@ Change Log
 
 The following contains information about new features, bug fixes, and other version changes.
 
+#### 4.0.0 (5/9/14)
+
+Added functionality to the property positionVector3, so that now models will be translated to that position.
+
 #### 3.0.0 (3/14/13)
 
 * Fixed the stop method so it calls the cancelAnimationFrame rather than clearTimeout.
