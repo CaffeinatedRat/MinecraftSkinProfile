@@ -31,7 +31,7 @@
 * Version 2 (3/9/13) --  Added an exception for browsers that do not support webgl.
 * Version 3 (3/14/13) --  Fixed the stop method so it calls the cancelAnimationFrame rather than clearTimeout.
 * Version 4 (5/5/13) --  Added functionality to the property positionVector3, so that now models will be translated to that position.
-* Version 5 (6/23/13) -- Added an arm motion animation.
+* Version 5 (6/23/13) -- Added an arm motion animation, and some head motion.
 * -----------------------------------------------------------------
 */
 
@@ -125,11 +125,8 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     texture.needsUpdate = true;
 
     //----------------------------------------------
-    // Define the texture mapping UV.
+    // Define Geometries and texture mapping UV.
     //----------------------------------------------
-
-    this._playerModel = new THREE.Object3D();
-    this._headGroup = new THREE.Object3D();
 
     //Each face texture is 8x8.
     var headGeometry = new THREE.CubeGeometry(this._scale, this._scale, this._scale);
@@ -171,12 +168,6 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     headGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.375, 1.00);
     headGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.375, 0.75);
 
-    headMaterial = new THREE.MeshBasicMaterial({ map: texture });
-    var headMesh = new THREE.Mesh(headGeometry, headMaterial);
-    //headMesh.dynamic = true;
-
-    this._headGroup.add(headMesh);
-
     //Each face texture is 8x8.
     var helmetGeometry = new THREE.CubeGeometry(1.125 * this._scale, 1.125 * this._scale, 1.125 * this._scale);
 
@@ -215,17 +206,6 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     helmetGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.75, 0.75);
     helmetGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.875, 0.75);
     helmetGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.875, 1.00);
-
-    var helmetMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-    helmetMaterial.side = THREE.DoubleSide;
-
-    this._helmetMesh = new THREE.Mesh(helmetGeometry, helmetMaterial);
-    //this._helmetMesh.dynamic = true;
-
-    this._headGroup.add(this._helmetMesh);
-    this._playerModel.add(this._headGroup);
-
-    this._scene.add(this._playerModel);
 
     //Each body texture is 8 x 12 x 4
     var bodyGeometry = new THREE.CubeGeometry(this._scale, this._scale * 1.5, this._scale * 0.5);
@@ -266,21 +246,8 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     bodyGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.5625, 0.5);
     bodyGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.5625, 0.375);
 
-    var bodyMaterial = new THREE.MeshBasicMaterial({ map: texture });
-    var bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
-
-    //The body's y-position will be: (Body / 2) + (Head / 2)
-    bodyMesh.position.y -= ((this._scale * 0.75) + (this._scale / 2));
-    //bodyMesh.dynamic = true;
-    this._playerModel.add(bodyMesh);
-
     //Each arm texture is 4 x 12 x 4
     var armGeometry = new THREE.CubeGeometry(this._scale * 0.5, this._scale * 1.5, this._scale * 0.5);
-
-    for (var i = 0; i < 8; i += 1) {
-        armGeometry.vertices[i].y -= (this._scale * 0.50);
-        //armGeometry.vertices[i].x -= (this._scale * 0.15);
-    }
 
     //Right-side of the arm.
     armGeometry.faceVertexUvs[0][1][0] = new THREE.UV(0.625, 0.375);
@@ -317,30 +284,6 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     armGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.75, 0.5);
     armGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.8125, 0.5);
     armGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.8125, 0.375);
-
-    var armMaterial = new THREE.MeshBasicMaterial({ map: texture });
-
-    //The left arms's y-position will be: (Body / 2) + (Head / 2)
-    //The left arms's x-position will be: (Body / 2) + (Arm / 2)
-    this._leftArmMesh = new THREE.Mesh(armGeometry, armMaterial);
-    this._leftArmMesh.position.y -= (this._scale / 2) + (this._scale * 0.25);
-    this._leftArmMesh.position.x += (this._scale / 4) + (this._scale / 2);
-    //this._leftArmMesh.position.x = (this._scale / 2);
-    //this._leftArmMesh.position.y -= ((this._scale * 0.75) + (this._scale / 2));
-    //this._leftArmMesh.dynamic = true;
-
-    this._playerModel.add(this._leftArmMesh);
-
-    //The right arms's y-position will be: (Body / 2) + (Head / 2)
-    //The right arms's x-position will be: (Body / 2) + (Arm / 2)
-    this._rightArmMesh = new THREE.Mesh(armGeometry, armMaterial);
-    this._rightArmMesh.position.y -= (this._scale / 2) + (this._scale * 0.25);
-    this._rightArmMesh.position.x -= (this._scale / 4) + (this._scale / 2);
-    //this._rightArmMesh.position.x = -(this._scale / 2);
-    //this._rightArmMesh.position.y -= ((this._scale * 0.75) + (this._scale / 2));
-    //this._rightArmMesh.dynamic = true;
-
-    this._playerModel.add(this._rightArmMesh);
 
     //Each leg texture is 4 x 8 and 4 x 4
     var legGeometry = new THREE.CubeGeometry(this._scale * 0.5, this._scale * 1.5, this._scale * 0.5);
@@ -381,24 +324,84 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     legGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.8125, 0.5);
     legGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.8125, 0.375);
 
+    //----------------------------------------------
+    // Vertex adjustments.
+    //----------------------------------------------
+
+    //NOTE: Reduces readability a bit, but also reduces overhead by condensing all loops into one for vertex adjustment.
+    for (var i = 0; i < 8; i++) {
+
+        headGeometry.vertices[i].y += (this._scale * 0.50);
+        helmetGeometry.vertices[i].y += (this._scale * 0.50);
+        armGeometry.vertices[i].y -= (this._scale * 0.50);
+
+    }
+
+    //----------------------------------------------
+    // Material management.
+    //----------------------------------------------
+
+    //Lump all of the mesh and grouping in one area...
+    var headMaterial = new THREE.MeshBasicMaterial({ map: texture });
+    var helmetMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true, side: THREE.DoubleSide });
+    //helmetMaterial.side = THREE.DoubleSide;
+    var bodyMaterial = new THREE.MeshBasicMaterial({ map: texture });
+    var armMaterial = new THREE.MeshBasicMaterial({ map: texture });
     var legMaterial = new THREE.MeshBasicMaterial({ map: texture });
+
+    //----------------------------------------------
+    // Mesh management.
+    //----------------------------------------------
+
+    //Global meshes...
+    this._helmetMesh = new THREE.Mesh(helmetGeometry, helmetMaterial);
+    this._leftArmMesh = new THREE.Mesh(armGeometry, armMaterial);
+    this._rightArmMesh = new THREE.Mesh(armGeometry, armMaterial);
+
+    //Local meshes...
+    var headMesh = new THREE.Mesh(headGeometry, headMaterial);
+    var bodyMesh = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    var leftLegMesh = new THREE.Mesh(legGeometry, legMaterial);
+    var rightLegMesh = new THREE.Mesh(legGeometry, legMaterial);
+
+    //The body's y-position will be: (Body / 2) + (Head / 2)
+    bodyMesh.position.y -= ((this._scale * 0.75) + (this._scale / 2));
+
+    //The left arms's y-position will be: (Body / 2) + (Head / 2)
+    //The left arms's x-position will be: (Body / 2) + (Arm / 2)
+    this._leftArmMesh.position.y -= (this._scale / 2) + (this._scale * 0.25);
+    this._leftArmMesh.position.x += (this._scale / 4) + (this._scale / 2);
+
+    //The right arms's y-position will be: (Body / 2) + (Head / 2)
+    //The right arms's x-position will be: (Body / 2) + (Arm / 2)
+    this._rightArmMesh.position.y -= (this._scale / 2) + (this._scale * 0.25);
+    this._rightArmMesh.position.x -= (this._scale / 4) + (this._scale / 2);
 
     //The left leg's y-position will be: Body + (Head / 2) + (Leg / 2)
     //The left leg's x-position will be: (leg / 2)
-    var leftLegMesh = new THREE.Mesh(legGeometry, legMaterial);
     leftLegMesh.position.y -= (this._scale * 1.5) + (this._scale / 2) + (this._scale * 0.75);
     leftLegMesh.position.x -= (this._scale * 0.25);
-    //leftLegMesh.dynamic = true;
-
-    this._playerModel.add(leftLegMesh);
 
     //The right leg's y-position will be: Body + (Head / 2) + (Leg / 2)
     //The right leg's x-position will be: (leg / 2)
-    var rightLegMesh = new THREE.Mesh(legGeometry, legMaterial);
     rightLegMesh.position.y -= (this._scale * 1.5) + (this._scale / 2) + (this._scale * 0.75);
     rightLegMesh.position.x += (this._scale * 0.25);
-    //rightLegMesh.dynamic = true;
 
+    //----------------------------------------------
+    // Model management.
+    //----------------------------------------------
+    this._playerModel = new THREE.Object3D();
+    this._headGroup = new THREE.Object3D();
+
+    this._headGroup.add(headMesh);
+    this._headGroup.add(this._helmetMesh);
+    this._headGroup.position.y -= (this._scale * 0.50);
+
+    this._playerModel.add(this._headGroup);
+    this._playerModel.add(bodyMesh);
+    this._playerModel.add(this._leftArmMesh);
+    this._playerModel.add(this._rightArmMesh);
+    this._playerModel.add(leftLegMesh);
     this._playerModel.add(rightLegMesh);
 
     this._scene.add(this._playerModel);
@@ -412,7 +415,11 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     }
 }
 
-CaffeinatedRat.Minecraft.ComputedModel.prototype.animate = function (time, theta, thetaInv, phi, omega, depthY, depthZ, screenX, screenY, canvasWidth, canvasHeight, camera) {
+CaffeinatedRat.Minecraft.ComputedModel.prototype.animate = function (time, screenX, screenY, canvasWidth, canvasHeight, camera) {
+
+    var cameraToHeadVector = new THREE.Vector3(camera.position.x - (this._positionVector3.x + this._headGroup.position.x), camera.position.y - (this._positionVector3.y + this._headGroup.position.y), camera.position.z - (this._positionVector3.z + this._headGroup.position.z));
+    var cursorVector = new THREE.Vector2(screenX - (canvasWidth / 2), screenY - (canvasHeight / 2));
+    var halfPI = Math.PI / 2;
 
     //Precomputed values PI / 32 = 0.098175
     //Precomputed values PI / 64 = 0.049087
@@ -424,27 +431,43 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.animate = function (time, theta
     this._leftArmMesh.rotation.y = 0.049087 * Math.cos(time);
     this._leftArmMesh.rotation.z = (0.098175 + (0.098175 * Math.sin(time)));
 
-    var halfPI = Math.PI / 2;
+    var theta = Math.atan2(cameraToHeadVector.x, cameraToHeadVector.z);
+    var thetaInv = Math.atan2(cameraToHeadVector.x, -cameraToHeadVector.z);
+    //var phi = Math.atan2(cameraToHeadVector.y, cameraToHeadVector.z);
+    //var omega = Math.atan2(cameraToHeadVector.y, cameraToHeadVector.x);
+
+    var depth = cameraToHeadVector.length();
+
+    //Calculate the view depth.
+    //var viewDepth = Math.tan(camera.fov / 2) / cursorVector.x;
+
+    //Calculate the ratio.
+    //var ratio = 1 / depth;
+
+    //theta = theta + ((ratio) * cursorVector.x);
+    //thetaInv = thetaInv - ((ratio) * cursorVector.x);
 
     if ((theta >= -halfPI) && (theta <= halfPI)) {
+
         this._headGroup.rotation.y = theta;
+
     }
-    else { //if ((theta > halfPI) || ((theta < -halfPI) && (theta > -Math.PI))) {
+    else {
+
         this._headGroup.rotation.y = thetaInv;
+
     }
 
-    this._headGroup.rotation.x = -phi;
-    //this._headGroup.rotation.z = omega;
+    //    if ((phi >= -halfPI) && (phi <= halfPI)) {
 
-    //var rotationAroundX = Math.atan((screenY - (canvasHeight / 2)) / depthZ);
-    //if (Math.abs(rotationAroundX) < (Math.PI / 8)) {
+    //        this._headGroup.rotation.x = Math.cos(theta) * -phi;
 
-    //this._headGroup.rotation.x = rotationAroundX;
+    //    }
 
-    //}
+    //    if ((omega >= -halfPI) && (omega <= halfPI)) {
 
-    ////this._headGroup.rotation.y = Math.atan((screenX - (canvasWidth / 2)) / depthZ);
-    //this._headGroup.rotation.y = Math.asin(camera.position.x / depthZ);
+    //        this._headGroup.rotation.z = Math.sin(theta) * omega;
+    //    }
 
     this._helmetMesh.visible = !this._hideHelmet;
 
@@ -673,28 +696,7 @@ CaffeinatedRat.Minecraft.SkinProfile.prototype.animate = function () {
 
     try {
 
-        //var depthZ = this._positionVector3.z + Math.sqrt((this._camera.position.x * this._camera.position.x) + (this._camera.position.y * this._camera.position.y) + (this._camera.position.z * this._camera.position.z));
-        //depthZ = Math.sqrt((this._camera.position.x * this._camera.position.x) + (this._camera.position.z * this._camera.position.z));
-        //var depthZ = this._positionVector3.z + this._camera.position.z;
-        //var depthY = this._positionVector3.y + Math.sqrt((this._camera.position.x * this._camera.position.x) + (this._camera.position.y * this._camera.position.y));
-
-        //        console.log('x: ' + this._camera.rotation.x + ' y: ' + this._camera.rotation.y + ' z: ' + this._camera.rotation.z);
-        //console.log('x: ' + this._camera.position.x + ' y: ' + this._camera.position.y + ' z: ' + this._camera.position.z);
-
-        var vector = new THREE.Vector3(this._camera.position.x - this._positionVector3.x, this._camera.position.y - this._positionVector3.y, this._camera.position.z - this._positionVector3.z);
-
-        //vector.x += this._mousePosX - (this._canvasWidth / 2);
-
-        var theta = Math.atan2(vector.x, vector.z);
-        var thetaInv = Math.atan2(vector.x, -vector.z);
-        var phi = Math.atan2(vector.y, vector.z);
-        var omega = Math.atan2(vector.x, vector.y);
-
-        console.log(theta);
-        console.log(thetaInv);
-
-        this._3dModel.animate(time, theta, thetaInv, phi, omega, 0, 0, this._mousePosX, this._mousePosY, this._canvasWidth, this._canvasHeight, this._camera);
-        //this._3dModel.animate(time, depthY, depthZ, this._mousePosX, this._mousePosY, this._canvasWidth, this._canvasHeight, this._camera);
+        this._3dModel.animate(time, this._mousePosX, this._mousePosY, this._canvasWidth, this._canvasHeight, this._camera);
 
         if (this._renderer != null) {
 
