@@ -31,6 +31,7 @@
 * Version 2 (3/9/13) --  Added an exception for browsers that do not support webgl.
 * Version 3 (3/14/13) --  Fixed the stop method so it calls the cancelAnimationFrame rather than clearTimeout.
 * Version 4 (5/5/13) --  Added functionality to the property positionVector3, so that now models will be translated to that position.
+* Version 5 (6/23/13) -- Added an arm motion animation.
 * -----------------------------------------------------------------
 */
 
@@ -164,10 +165,11 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     headGeometry.faceVertexUvs[0][2][3] = new THREE.UV(0.25, 1.00);
 
     //Bottom of the head.
-    headGeometry.faceVertexUvs[0][3][0] = new THREE.UV(0.25, 1.00);
-    headGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.25, 0.75);
-    headGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.375, 0.75);
-    headGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.375, 1.00);
+    // --- CR (6/3/13) --- Fixed the bottom as it was flipped.
+    headGeometry.faceVertexUvs[0][3][0] = new THREE.UV(0.25, 0.75);
+    headGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.25, 1.00);
+    headGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.375, 1.00);
+    headGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.375, 0.75);
 
     headMaterial = new THREE.MeshBasicMaterial({ map: texture });
     var headMesh = new THREE.Mesh(headGeometry, headMaterial);
@@ -410,7 +412,7 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.init = function (scene) {
     }
 }
 
-CaffeinatedRat.Minecraft.ComputedModel.prototype.animate = function (time, depthY, depthZ, screenX, screenY, canvasWidth, canvasHeight, quadrant) {
+CaffeinatedRat.Minecraft.ComputedModel.prototype.animate = function (time, theta, thetaInv, phi, omega, depthY, depthZ, screenX, screenY, canvasWidth, canvasHeight, camera) {
 
     //Precomputed values PI / 32 = 0.098175
     //Precomputed values PI / 64 = 0.049087
@@ -422,22 +424,27 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype.animate = function (time, depth
     this._leftArmMesh.rotation.y = 0.049087 * Math.cos(time);
     this._leftArmMesh.rotation.z = (0.098175 + (0.098175 * Math.sin(time)));
 
-    /*
-        if ((quadrant > 1) && (quadrant < 4)) {
+    var halfPI = Math.PI / 2;
 
-            screenX = -1 * screenX;
-
-        }
-    */
-
-    var rotationAroundX = Math.atan((screenY - (canvasHeight / 2)) / depthZ);
-    if (Math.abs(rotationAroundX) < (Math.PI / 8)) {
-
-        this._headGroup.rotation.x = rotationAroundX;
-
+    if ((theta >= -halfPI) && (theta <= halfPI)) {
+        this._headGroup.rotation.y = theta;
+    }
+    else { //if ((theta > halfPI) || ((theta < -halfPI) && (theta > -Math.PI))) {
+        this._headGroup.rotation.y = thetaInv;
     }
 
-    this._headGroup.rotation.y = Math.atan((screenX - (canvasWidth / 2)) / depthZ);
+    this._headGroup.rotation.x = -phi;
+    //this._headGroup.rotation.z = omega;
+
+    //var rotationAroundX = Math.atan((screenY - (canvasHeight / 2)) / depthZ);
+    //if (Math.abs(rotationAroundX) < (Math.PI / 8)) {
+
+    //this._headGroup.rotation.x = rotationAroundX;
+
+    //}
+
+    ////this._headGroup.rotation.y = Math.atan((screenX - (canvasWidth / 2)) / depthZ);
+    //this._headGroup.rotation.y = Math.asin(camera.position.x / depthZ);
 
     this._helmetMesh.visible = !this._hideHelmet;
 
@@ -589,8 +596,8 @@ CaffeinatedRat.Minecraft.SkinProfile = function (parameters) {
 
     });
 
-    this._mousePosX = 0;
-    this._mousePosY = 0;
+    this._mousePosX = this._canvasWidth / 2;
+    this._mousePosY = this._canvasHeight / 2;
 }
 
 CaffeinatedRat.Minecraft.SkinProfile.prototype.init = function () {
@@ -666,22 +673,28 @@ CaffeinatedRat.Minecraft.SkinProfile.prototype.animate = function () {
 
     try {
 
-        var depthZ = this._positionVector3.z + Math.sqrt((this._camera.position.x * this._camera.position.x) + (this._camera.position.z * this._camera.position.z));
-        var depthY = this._positionVector3.y + Math.sqrt((this._camera.position.x * this._camera.position.x) + (this._camera.position.y * this._camera.position.y));
+        //var depthZ = this._positionVector3.z + Math.sqrt((this._camera.position.x * this._camera.position.x) + (this._camera.position.y * this._camera.position.y) + (this._camera.position.z * this._camera.position.z));
+        //depthZ = Math.sqrt((this._camera.position.x * this._camera.position.x) + (this._camera.position.z * this._camera.position.z));
+        //var depthZ = this._positionVector3.z + this._camera.position.z;
+        //var depthY = this._positionVector3.y + Math.sqrt((this._camera.position.x * this._camera.position.x) + (this._camera.position.y * this._camera.position.y));
 
-        var quadrant = 1;
-        if (this._camera.position.x >= 0) {
+        //        console.log('x: ' + this._camera.rotation.x + ' y: ' + this._camera.rotation.y + ' z: ' + this._camera.rotation.z);
+        //console.log('x: ' + this._camera.position.x + ' y: ' + this._camera.position.y + ' z: ' + this._camera.position.z);
 
-            quadrant = (this._camera.position.z >= 0) ? 1 : 2;
+        var vector = new THREE.Vector3(this._camera.position.x - this._positionVector3.x, this._camera.position.y - this._positionVector3.y, this._camera.position.z - this._positionVector3.z);
 
-        }
-        else {
+        //vector.x += this._mousePosX - (this._canvasWidth / 2);
 
-            quadrant = (this._camera.position.z >= 0) ? 4 : 3;
+        var theta = Math.atan2(vector.x, vector.z);
+        var thetaInv = Math.atan2(vector.x, -vector.z);
+        var phi = Math.atan2(vector.y, vector.z);
+        var omega = Math.atan2(vector.x, vector.y);
 
-        }
+        console.log(theta);
+        console.log(thetaInv);
 
-        this._3dModel.animate(time, depthY, depthZ, this._mousePosX, this._mousePosY, this._canvasWidth, this._canvasHeight, quadrant);
+        this._3dModel.animate(time, theta, thetaInv, phi, omega, 0, 0, this._mousePosX, this._mousePosY, this._canvasWidth, this._canvasHeight, this._camera);
+        //this._3dModel.animate(time, depthY, depthZ, this._mousePosX, this._mousePosY, this._canvasWidth, this._canvasHeight, this._camera);
 
         if (this._renderer != null) {
 
