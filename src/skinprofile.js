@@ -143,197 +143,197 @@ CaffeinatedRat.Minecraft.ComputedModel.prototype = {
         var headGeometry = new THREE.CubeGeometry(this._scale, this._scale, this._scale);
 
         //Right-side of the head.
-        headGeometry.faceVertexUvs[0][1][0] = new THREE.UV(0.0, 0.75);
-        headGeometry.faceVertexUvs[0][1][1] = new THREE.UV(0.0, 0.5);
-        headGeometry.faceVertexUvs[0][1][2] = new THREE.UV(0.125, 0.5);
-        headGeometry.faceVertexUvs[0][1][3] = new THREE.UV(0.125, 0.75);
+        headGeometry.faceVertexUvs[0][1][0] = new THREE.Vector2(0.0, 0.75);
+        headGeometry.faceVertexUvs[0][1][1] = new THREE.Vector2(0.0, 0.5);
+        headGeometry.faceVertexUvs[0][1][2] = new THREE.Vector2(0.125, 0.5);
+        headGeometry.faceVertexUvs[0][1][3] = new THREE.Vector2(0.125, 0.75);
 
         //Face...
-        headGeometry.faceVertexUvs[0][4][0] = new THREE.UV(0.125, 0.75);
-        headGeometry.faceVertexUvs[0][4][1] = new THREE.UV(0.125, 0.5);
-        headGeometry.faceVertexUvs[0][4][2] = new THREE.UV(0.25, 0.5);
-        headGeometry.faceVertexUvs[0][4][3] = new THREE.UV(0.25, 0.75);
+        headGeometry.faceVertexUvs[0][4][0] = new THREE.Vector2(0.125, 0.75);
+        headGeometry.faceVertexUvs[0][4][1] = new THREE.Vector2(0.125, 0.5);
+        headGeometry.faceVertexUvs[0][4][2] = new THREE.Vector2(0.25, 0.5);
+        headGeometry.faceVertexUvs[0][4][3] = new THREE.Vector2(0.25, 0.75);
 
         //Left-side of the head.
-        headGeometry.faceVertexUvs[0][0][0] = new THREE.UV(0.25, 0.75);
-        headGeometry.faceVertexUvs[0][0][1] = new THREE.UV(0.25, 0.5);
-        headGeometry.faceVertexUvs[0][0][2] = new THREE.UV(0.375, 0.5);
-        headGeometry.faceVertexUvs[0][0][3] = new THREE.UV(0.375, 0.75);
+        headGeometry.faceVertexUvs[0][0][0] = new THREE.Vector2(0.25, 0.75);
+        headGeometry.faceVertexUvs[0][0][1] = new THREE.Vector2(0.25, 0.5);
+        headGeometry.faceVertexUvs[0][0][2] = new THREE.Vector2(0.375, 0.5);
+        headGeometry.faceVertexUvs[0][0][3] = new THREE.Vector2(0.375, 0.75);
 
         //Back of the head.
-        headGeometry.faceVertexUvs[0][5][0] = new THREE.UV(0.375, 0.75);
-        headGeometry.faceVertexUvs[0][5][1] = new THREE.UV(0.375, 0.5);
-        headGeometry.faceVertexUvs[0][5][2] = new THREE.UV(0.5, 0.5);
-        headGeometry.faceVertexUvs[0][5][3] = new THREE.UV(0.5, 0.75);
+        headGeometry.faceVertexUvs[0][5][0] = new THREE.Vector2(0.375, 0.75);
+        headGeometry.faceVertexUvs[0][5][1] = new THREE.Vector2(0.375, 0.5);
+        headGeometry.faceVertexUvs[0][5][2] = new THREE.Vector2(0.5, 0.5);
+        headGeometry.faceVertexUvs[0][5][3] = new THREE.Vector2(0.5, 0.75);
 
         //Top of the head.
-        headGeometry.faceVertexUvs[0][2][0] = new THREE.UV(0.125, 1.00);
-        headGeometry.faceVertexUvs[0][2][1] = new THREE.UV(0.125, 0.75);
-        headGeometry.faceVertexUvs[0][2][2] = new THREE.UV(0.25, 0.75);
-        headGeometry.faceVertexUvs[0][2][3] = new THREE.UV(0.25, 1.00);
+        headGeometry.faceVertexUvs[0][2][0] = new THREE.Vector2(0.125, 1.00);
+        headGeometry.faceVertexUvs[0][2][1] = new THREE.Vector2(0.125, 0.75);
+        headGeometry.faceVertexUvs[0][2][2] = new THREE.Vector2(0.25, 0.75);
+        headGeometry.faceVertexUvs[0][2][3] = new THREE.Vector2(0.25, 1.00);
 
         //Bottom of the head.
         // --- CR (6/3/13) --- Fixed the bottom as it was flipped.
-        headGeometry.faceVertexUvs[0][3][0] = new THREE.UV(0.25, 0.75);
-        headGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.25, 1.00);
-        headGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.375, 1.00);
-        headGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.375, 0.75);
+        headGeometry.faceVertexUvs[0][3][0] = new THREE.Vector2(0.25, 0.75);
+        headGeometry.faceVertexUvs[0][3][1] = new THREE.Vector2(0.25, 1.00);
+        headGeometry.faceVertexUvs[0][3][2] = new THREE.Vector2(0.375, 1.00);
+        headGeometry.faceVertexUvs[0][3][3] = new THREE.Vector2(0.375, 0.75);
 
         //Each face texture is 8x8.
         var helmetGeometry = new THREE.CubeGeometry(1.125 * this._scale, 1.125 * this._scale, 1.125 * this._scale);
 
         //Right-side of the head.
-        helmetGeometry.faceVertexUvs[0][1][0] = new THREE.UV(0.5, 0.75);
-        helmetGeometry.faceVertexUvs[0][1][1] = new THREE.UV(0.5, 0.5);
-        helmetGeometry.faceVertexUvs[0][1][2] = new THREE.UV(0.625, 0.5);
-        helmetGeometry.faceVertexUvs[0][1][3] = new THREE.UV(0.625, 0.75);
+        helmetGeometry.faceVertexUvs[0][1][0] = new THREE.Vector2(0.5, 0.75);
+        helmetGeometry.faceVertexUvs[0][1][1] = new THREE.Vector2(0.5, 0.5);
+        helmetGeometry.faceVertexUvs[0][1][2] = new THREE.Vector2(0.625, 0.5);
+        helmetGeometry.faceVertexUvs[0][1][3] = new THREE.Vector2(0.625, 0.75);
 
         //Face...
-        helmetGeometry.faceVertexUvs[0][4][0] = new THREE.UV(0.625, 0.75);
-        helmetGeometry.faceVertexUvs[0][4][1] = new THREE.UV(0.625, 0.5);
-        helmetGeometry.faceVertexUvs[0][4][2] = new THREE.UV(0.75, 0.5);
-        helmetGeometry.faceVertexUvs[0][4][3] = new THREE.UV(0.75, 0.75);
+        helmetGeometry.faceVertexUvs[0][4][0] = new THREE.Vector2(0.625, 0.75);
+        helmetGeometry.faceVertexUvs[0][4][1] = new THREE.Vector2(0.625, 0.5);
+        helmetGeometry.faceVertexUvs[0][4][2] = new THREE.Vector2(0.75, 0.5);
+        helmetGeometry.faceVertexUvs[0][4][3] = new THREE.Vector2(0.75, 0.75);
 
         //Left-side of the head.
-        helmetGeometry.faceVertexUvs[0][0][0] = new THREE.UV(0.75, 0.75);
-        helmetGeometry.faceVertexUvs[0][0][1] = new THREE.UV(0.75, 0.5);
-        helmetGeometry.faceVertexUvs[0][0][2] = new THREE.UV(0.875, 0.5);
-        helmetGeometry.faceVertexUvs[0][0][3] = new THREE.UV(0.875, 0.75);
+        helmetGeometry.faceVertexUvs[0][0][0] = new THREE.Vector2(0.75, 0.75);
+        helmetGeometry.faceVertexUvs[0][0][1] = new THREE.Vector2(0.75, 0.5);
+        helmetGeometry.faceVertexUvs[0][0][2] = new THREE.Vector2(0.875, 0.5);
+        helmetGeometry.faceVertexUvs[0][0][3] = new THREE.Vector2(0.875, 0.75);
 
         //Back of the head.
-        helmetGeometry.faceVertexUvs[0][5][0] = new THREE.UV(0.875, 0.75);
-        helmetGeometry.faceVertexUvs[0][5][1] = new THREE.UV(0.875, 0.5);
-        helmetGeometry.faceVertexUvs[0][5][2] = new THREE.UV(1.0, 0.5);
-        helmetGeometry.faceVertexUvs[0][5][3] = new THREE.UV(1.0, 0.75);
+        helmetGeometry.faceVertexUvs[0][5][0] = new THREE.Vector2(0.875, 0.75);
+        helmetGeometry.faceVertexUvs[0][5][1] = new THREE.Vector2(0.875, 0.5);
+        helmetGeometry.faceVertexUvs[0][5][2] = new THREE.Vector2(1.0, 0.5);
+        helmetGeometry.faceVertexUvs[0][5][3] = new THREE.Vector2(1.0, 0.75);
 
         //Top of the head.
-        helmetGeometry.faceVertexUvs[0][2][0] = new THREE.UV(0.625, 1.00);
-        helmetGeometry.faceVertexUvs[0][2][1] = new THREE.UV(0.625, 0.75);
-        helmetGeometry.faceVertexUvs[0][2][2] = new THREE.UV(0.75, 0.75);
-        helmetGeometry.faceVertexUvs[0][2][3] = new THREE.UV(0.75, 1.00);
+        helmetGeometry.faceVertexUvs[0][2][0] = new THREE.Vector2(0.625, 1.00);
+        helmetGeometry.faceVertexUvs[0][2][1] = new THREE.Vector2(0.625, 0.75);
+        helmetGeometry.faceVertexUvs[0][2][2] = new THREE.Vector2(0.75, 0.75);
+        helmetGeometry.faceVertexUvs[0][2][3] = new THREE.Vector2(0.75, 1.00);
 
         //Bottom of the head.
-        helmetGeometry.faceVertexUvs[0][3][0] = new THREE.UV(0.75, 1.00);
-        helmetGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.75, 0.75);
-        helmetGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.875, 0.75);
-        helmetGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.875, 1.00);
+        helmetGeometry.faceVertexUvs[0][3][0] = new THREE.Vector2(0.75, 1.00);
+        helmetGeometry.faceVertexUvs[0][3][1] = new THREE.Vector2(0.75, 0.75);
+        helmetGeometry.faceVertexUvs[0][3][2] = new THREE.Vector2(0.875, 0.75);
+        helmetGeometry.faceVertexUvs[0][3][3] = new THREE.Vector2(0.875, 1.00);
 
         //Each body texture is 8 x 12 x 4
         var bodyGeometry = new THREE.CubeGeometry(this._scale, this._scale * 1.5, this._scale * 0.5);
 
         //Right-side of the body.
-        bodyGeometry.faceVertexUvs[0][1][0] = new THREE.UV(0.25, 0.375);
-        bodyGeometry.faceVertexUvs[0][1][1] = new THREE.UV(0.25, 0.0);
-        bodyGeometry.faceVertexUvs[0][1][2] = new THREE.UV(0.3125, 0.0);
-        bodyGeometry.faceVertexUvs[0][1][3] = new THREE.UV(0.3125, 0.375);
+        bodyGeometry.faceVertexUvs[0][1][0] = new THREE.Vector2(0.25, 0.375);
+        bodyGeometry.faceVertexUvs[0][1][1] = new THREE.Vector2(0.25, 0.0);
+        bodyGeometry.faceVertexUvs[0][1][2] = new THREE.Vector2(0.3125, 0.0);
+        bodyGeometry.faceVertexUvs[0][1][3] = new THREE.Vector2(0.3125, 0.375);
 
         //Front...
-        bodyGeometry.faceVertexUvs[0][4][0] = new THREE.UV(0.3125, 0.375);
-        bodyGeometry.faceVertexUvs[0][4][1] = new THREE.UV(0.3125, 0.0);
-        bodyGeometry.faceVertexUvs[0][4][2] = new THREE.UV(0.4375, 0.0);
-        bodyGeometry.faceVertexUvs[0][4][3] = new THREE.UV(0.4375, 0.375);
+        bodyGeometry.faceVertexUvs[0][4][0] = new THREE.Vector2(0.3125, 0.375);
+        bodyGeometry.faceVertexUvs[0][4][1] = new THREE.Vector2(0.3125, 0.0);
+        bodyGeometry.faceVertexUvs[0][4][2] = new THREE.Vector2(0.4375, 0.0);
+        bodyGeometry.faceVertexUvs[0][4][3] = new THREE.Vector2(0.4375, 0.375);
 
         //Left-side of the body.
-        bodyGeometry.faceVertexUvs[0][0][0] = new THREE.UV(0.4375, 0.375);
-        bodyGeometry.faceVertexUvs[0][0][1] = new THREE.UV(0.4375, 0.0);
-        bodyGeometry.faceVertexUvs[0][0][2] = new THREE.UV(0.5, 0.0);
-        bodyGeometry.faceVertexUvs[0][0][3] = new THREE.UV(0.5, 0.375);
+        bodyGeometry.faceVertexUvs[0][0][0] = new THREE.Vector2(0.4375, 0.375);
+        bodyGeometry.faceVertexUvs[0][0][1] = new THREE.Vector2(0.4375, 0.0);
+        bodyGeometry.faceVertexUvs[0][0][2] = new THREE.Vector2(0.5, 0.0);
+        bodyGeometry.faceVertexUvs[0][0][3] = new THREE.Vector2(0.5, 0.375);
 
         //Back
-        bodyGeometry.faceVertexUvs[0][5][0] = new THREE.UV(0.5, 0.375);
-        bodyGeometry.faceVertexUvs[0][5][1] = new THREE.UV(0.5, 0.0);
-        bodyGeometry.faceVertexUvs[0][5][2] = new THREE.UV(0.625, 0.0);
-        bodyGeometry.faceVertexUvs[0][5][3] = new THREE.UV(0.625, 0.375);
+        bodyGeometry.faceVertexUvs[0][5][0] = new THREE.Vector2(0.5, 0.375);
+        bodyGeometry.faceVertexUvs[0][5][1] = new THREE.Vector2(0.5, 0.0);
+        bodyGeometry.faceVertexUvs[0][5][2] = new THREE.Vector2(0.625, 0.0);
+        bodyGeometry.faceVertexUvs[0][5][3] = new THREE.Vector2(0.625, 0.375);
 
         //Neck Hole
-        bodyGeometry.faceVertexUvs[0][2][0] = new THREE.UV(0.3125, 0.375);
-        bodyGeometry.faceVertexUvs[0][2][1] = new THREE.UV(0.3125, 0.5);
-        bodyGeometry.faceVertexUvs[0][2][2] = new THREE.UV(0.4375, 0.5);
-        bodyGeometry.faceVertexUvs[0][2][3] = new THREE.UV(0.4375, 0.375);
+        bodyGeometry.faceVertexUvs[0][2][0] = new THREE.Vector2(0.3125, 0.375);
+        bodyGeometry.faceVertexUvs[0][2][1] = new THREE.Vector2(0.3125, 0.5);
+        bodyGeometry.faceVertexUvs[0][2][2] = new THREE.Vector2(0.4375, 0.5);
+        bodyGeometry.faceVertexUvs[0][2][3] = new THREE.Vector2(0.4375, 0.375);
 
         //Waist.
-        bodyGeometry.faceVertexUvs[0][3][0] = new THREE.UV(0.4375, 0.375);
-        bodyGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.4375, 0.5);
-        bodyGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.5625, 0.5);
-        bodyGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.5625, 0.375);
+        bodyGeometry.faceVertexUvs[0][3][0] = new THREE.Vector2(0.4375, 0.375);
+        bodyGeometry.faceVertexUvs[0][3][1] = new THREE.Vector2(0.4375, 0.5);
+        bodyGeometry.faceVertexUvs[0][3][2] = new THREE.Vector2(0.5625, 0.5);
+        bodyGeometry.faceVertexUvs[0][3][3] = new THREE.Vector2(0.5625, 0.375);
 
         //Each arm texture is 4 x 12 x 4
         var armGeometry = new THREE.CubeGeometry(this._scale * 0.5, this._scale * 1.5, this._scale * 0.5);
 
         //Right-side of the arm.
-        armGeometry.faceVertexUvs[0][1][0] = new THREE.UV(0.625, 0.375);
-        armGeometry.faceVertexUvs[0][1][1] = new THREE.UV(0.625, 0.0);
-        armGeometry.faceVertexUvs[0][1][2] = new THREE.UV(0.6875, 0.0);
-        armGeometry.faceVertexUvs[0][1][3] = new THREE.UV(0.6875, 0.375);
+        armGeometry.faceVertexUvs[0][1][0] = new THREE.Vector2(0.625, 0.375);
+        armGeometry.faceVertexUvs[0][1][1] = new THREE.Vector2(0.625, 0.0);
+        armGeometry.faceVertexUvs[0][1][2] = new THREE.Vector2(0.6875, 0.0);
+        armGeometry.faceVertexUvs[0][1][3] = new THREE.Vector2(0.6875, 0.375);
 
         //Front...
-        armGeometry.faceVertexUvs[0][4][0] = new THREE.UV(0.6875, 0.375);
-        armGeometry.faceVertexUvs[0][4][1] = new THREE.UV(0.6875, 0.0);
-        armGeometry.faceVertexUvs[0][4][2] = new THREE.UV(0.75, 0.0);
-        armGeometry.faceVertexUvs[0][4][3] = new THREE.UV(0.75, 0.375);
+        armGeometry.faceVertexUvs[0][4][0] = new THREE.Vector2(0.6875, 0.375);
+        armGeometry.faceVertexUvs[0][4][1] = new THREE.Vector2(0.6875, 0.0);
+        armGeometry.faceVertexUvs[0][4][2] = new THREE.Vector2(0.75, 0.0);
+        armGeometry.faceVertexUvs[0][4][3] = new THREE.Vector2(0.75, 0.375);
 
         //Left-side of the arm.
-        armGeometry.faceVertexUvs[0][0][0] = new THREE.UV(0.75, 0.375);
-        armGeometry.faceVertexUvs[0][0][1] = new THREE.UV(0.75, 0.0);
-        armGeometry.faceVertexUvs[0][0][2] = new THREE.UV(0.8125, 0.0);
-        armGeometry.faceVertexUvs[0][0][3] = new THREE.UV(0.8125, 0.375);
+        armGeometry.faceVertexUvs[0][0][0] = new THREE.Vector2(0.75, 0.375);
+        armGeometry.faceVertexUvs[0][0][1] = new THREE.Vector2(0.75, 0.0);
+        armGeometry.faceVertexUvs[0][0][2] = new THREE.Vector2(0.8125, 0.0);
+        armGeometry.faceVertexUvs[0][0][3] = new THREE.Vector2(0.8125, 0.375);
 
         //Back
-        armGeometry.faceVertexUvs[0][5][0] = new THREE.UV(0.8125, 0.375);
-        armGeometry.faceVertexUvs[0][5][1] = new THREE.UV(0.8125, 0.0);
-        armGeometry.faceVertexUvs[0][5][2] = new THREE.UV(0.875, 0.0);
-        armGeometry.faceVertexUvs[0][5][3] = new THREE.UV(0.875, 0.375);
+        armGeometry.faceVertexUvs[0][5][0] = new THREE.Vector2(0.8125, 0.375);
+        armGeometry.faceVertexUvs[0][5][1] = new THREE.Vector2(0.8125, 0.0);
+        armGeometry.faceVertexUvs[0][5][2] = new THREE.Vector2(0.875, 0.0);
+        armGeometry.faceVertexUvs[0][5][3] = new THREE.Vector2(0.875, 0.375);
 
         //Shoulder
-        armGeometry.faceVertexUvs[0][2][0] = new THREE.UV(0.6875, 0.375);
-        armGeometry.faceVertexUvs[0][2][1] = new THREE.UV(0.6875, 0.5);
-        armGeometry.faceVertexUvs[0][2][2] = new THREE.UV(0.75, 0.5);
-        armGeometry.faceVertexUvs[0][2][3] = new THREE.UV(0.75, 0.375);
+        armGeometry.faceVertexUvs[0][2][0] = new THREE.Vector2(0.6875, 0.375);
+        armGeometry.faceVertexUvs[0][2][1] = new THREE.Vector2(0.6875, 0.5);
+        armGeometry.faceVertexUvs[0][2][2] = new THREE.Vector2(0.75, 0.5);
+        armGeometry.faceVertexUvs[0][2][3] = new THREE.Vector2(0.75, 0.375);
 
         //Hand.
-        armGeometry.faceVertexUvs[0][3][0] = new THREE.UV(0.75, 0.375);
-        armGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.75, 0.5);
-        armGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.8125, 0.5);
-        armGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.8125, 0.375);
+        armGeometry.faceVertexUvs[0][3][0] = new THREE.Vector2(0.75, 0.375);
+        armGeometry.faceVertexUvs[0][3][1] = new THREE.Vector2(0.75, 0.5);
+        armGeometry.faceVertexUvs[0][3][2] = new THREE.Vector2(0.8125, 0.5);
+        armGeometry.faceVertexUvs[0][3][3] = new THREE.Vector2(0.8125, 0.375);
 
         //Each leg texture is 4 x 8 and 4 x 4
         var legGeometry = new THREE.CubeGeometry(this._scale * 0.5, this._scale * 1.5, this._scale * 0.5);
 
         //Right-side of the leg.
-        legGeometry.faceVertexUvs[0][1][0] = new THREE.UV(0.0, 0.375);
-        legGeometry.faceVertexUvs[0][1][1] = new THREE.UV(0.0, 0.0);
-        legGeometry.faceVertexUvs[0][1][2] = new THREE.UV(0.0625, 0.0);
-        legGeometry.faceVertexUvs[0][1][3] = new THREE.UV(0.0625, 0.375);
+        legGeometry.faceVertexUvs[0][1][0] = new THREE.Vector2(0.0, 0.375);
+        legGeometry.faceVertexUvs[0][1][1] = new THREE.Vector2(0.0, 0.0);
+        legGeometry.faceVertexUvs[0][1][2] = new THREE.Vector2(0.0625, 0.0);
+        legGeometry.faceVertexUvs[0][1][3] = new THREE.Vector2(0.0625, 0.375);
 
         //Front...
-        legGeometry.faceVertexUvs[0][4][0] = new THREE.UV(0.0625, 0.375);
-        legGeometry.faceVertexUvs[0][4][1] = new THREE.UV(0.0625, 0.0);
-        legGeometry.faceVertexUvs[0][4][2] = new THREE.UV(0.125, 0.0);
-        legGeometry.faceVertexUvs[0][4][3] = new THREE.UV(0.125, 0.375);
+        legGeometry.faceVertexUvs[0][4][0] = new THREE.Vector2(0.0625, 0.375);
+        legGeometry.faceVertexUvs[0][4][1] = new THREE.Vector2(0.0625, 0.0);
+        legGeometry.faceVertexUvs[0][4][2] = new THREE.Vector2(0.125, 0.0);
+        legGeometry.faceVertexUvs[0][4][3] = new THREE.Vector2(0.125, 0.375);
 
         //Left-side of the legt.
-        legGeometry.faceVertexUvs[0][0][0] = new THREE.UV(0.125, 0.375);
-        legGeometry.faceVertexUvs[0][0][1] = new THREE.UV(0.125, 0.0);
-        legGeometry.faceVertexUvs[0][0][2] = new THREE.UV(0.1875, 0.0);
-        legGeometry.faceVertexUvs[0][0][3] = new THREE.UV(0.1875, 0.375);
+        legGeometry.faceVertexUvs[0][0][0] = new THREE.Vector2(0.125, 0.375);
+        legGeometry.faceVertexUvs[0][0][1] = new THREE.Vector2(0.125, 0.0);
+        legGeometry.faceVertexUvs[0][0][2] = new THREE.Vector2(0.1875, 0.0);
+        legGeometry.faceVertexUvs[0][0][3] = new THREE.Vector2(0.1875, 0.375);
 
         //Back
-        legGeometry.faceVertexUvs[0][5][0] = new THREE.UV(0.1875, 0.375);
-        legGeometry.faceVertexUvs[0][5][1] = new THREE.UV(0.1875, 0.0);
-        legGeometry.faceVertexUvs[0][5][2] = new THREE.UV(0.25, 0.0);
-        legGeometry.faceVertexUvs[0][5][3] = new THREE.UV(0.25, 0.375);
+        legGeometry.faceVertexUvs[0][5][0] = new THREE.Vector2(0.1875, 0.375);
+        legGeometry.faceVertexUvs[0][5][1] = new THREE.Vector2(0.1875, 0.0);
+        legGeometry.faceVertexUvs[0][5][2] = new THREE.Vector2(0.25, 0.0);
+        legGeometry.faceVertexUvs[0][5][3] = new THREE.Vector2(0.25, 0.375);
 
         //Top
-        legGeometry.faceVertexUvs[0][2][0] = new THREE.UV(0.6875, 0.375);
-        legGeometry.faceVertexUvs[0][2][1] = new THREE.UV(0.6875, 0.5);
-        legGeometry.faceVertexUvs[0][2][2] = new THREE.UV(0.75, 0.5);
-        legGeometry.faceVertexUvs[0][2][3] = new THREE.UV(0.75, 0.375);
+        legGeometry.faceVertexUvs[0][2][0] = new THREE.Vector2(0.6875, 0.375);
+        legGeometry.faceVertexUvs[0][2][1] = new THREE.Vector2(0.6875, 0.5);
+        legGeometry.faceVertexUvs[0][2][2] = new THREE.Vector2(0.75, 0.5);
+        legGeometry.faceVertexUvs[0][2][3] = new THREE.Vector2(0.75, 0.375);
 
         //Foot.
-        legGeometry.faceVertexUvs[0][3][0] = new THREE.UV(0.75, 0.375);
-        legGeometry.faceVertexUvs[0][3][1] = new THREE.UV(0.75, 0.5);
-        legGeometry.faceVertexUvs[0][3][2] = new THREE.UV(0.8125, 0.5);
-        legGeometry.faceVertexUvs[0][3][3] = new THREE.UV(0.8125, 0.375);
+        legGeometry.faceVertexUvs[0][3][0] = new THREE.Vector2(0.75, 0.375);
+        legGeometry.faceVertexUvs[0][3][1] = new THREE.Vector2(0.75, 0.5);
+        legGeometry.faceVertexUvs[0][3][2] = new THREE.Vector2(0.8125, 0.5);
+        legGeometry.faceVertexUvs[0][3][3] = new THREE.Vector2(0.8125, 0.375);
 
         //----------------------------------------------
         // Vertex adjustments.
@@ -646,12 +646,12 @@ CaffeinatedRat.Minecraft.SkinProfile.prototype = {
 
         var that = this;
 
-        $('#skinWrapper').live('mousemove', function (event) {
+//        $('#skinWrapper').live('mousemove', function (event) {
 
-            that._mousePosX = event.offsetX;
-            that._mousePosY = event.offsetY;
+//            that._mousePosX = event.offsetX;
+//            that._mousePosY = event.offsetY;
 
-        });
+//        });
 
         clearTimeout(this._animationId);
 
